@@ -1,4 +1,4 @@
-public class ProductReference {
+public final class ProductReference {
 
     private Product product;
 

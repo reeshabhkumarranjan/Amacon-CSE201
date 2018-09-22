@@ -1,6 +1,6 @@
-public class CategoryTree {
+public final class CategoryTree {
 
-    private Category root;
+    private final Category root;
 
     public CategoryTree() {
 

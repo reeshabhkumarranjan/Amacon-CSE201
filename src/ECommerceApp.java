@@ -1,7 +1,7 @@
-public class ECommerceApp {
+public final class ECommerceApp {
 
-    Database database;
-    Cart cart;
+    private final Database database;
+    private Cart cart;
     //Boolean adminMode;
 
     private void clearScreen(){

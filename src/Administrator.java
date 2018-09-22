@@ -1,6 +1,6 @@
-public class Administrator implements User {
+public final class Administrator implements User {
 
-    Database d;
+    private final Database d;
 
     public Administrator(Database d) {
         this.d = d;

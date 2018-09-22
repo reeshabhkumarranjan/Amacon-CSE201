@@ -1,11 +1,11 @@
 import java.util.HashSet;
 import java.util.Scanner;
 
-public class Database {
+public final class Database {
 
-    private CategoryTree categoryTree;
+    private final CategoryTree categoryTree;
     //HashSet<String> productSet;
-    private Scanner read;
+    private final Scanner read;
     private int revenue;
 
     public Database() {

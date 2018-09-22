@@ -1,8 +1,9 @@
 import java.util.Scanner;
 
-public class IO {
+public final class IO {
 
     private static Scanner read=new Scanner(System.in);
+
     public static int nextInt(){
 
         return Integer.parseInt(read.next());

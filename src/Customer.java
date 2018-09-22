@@ -1,7 +1,7 @@
-public class Customer implements User{
+public final class Customer implements User{
 
     private double funds;
-    Cart c;
+    private final Cart c;
 
     public Customer(Cart c) {
         //this.funds = funds;

@@ -1,4 +1,4 @@
-public class PathString {
+public final class PathString {
 
     private String s;
 

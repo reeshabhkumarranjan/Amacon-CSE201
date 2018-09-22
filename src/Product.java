@@ -1,4 +1,4 @@
-public class Product {
+public final class Product {
 
     private final String name;
     private int numberCount;

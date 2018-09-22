@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-class Item{
+final class Item{
 
     private Product product;
     private int qty;
@@ -19,10 +19,10 @@ class Item{
     }
 }
 
-public class Cart {
+public final class Cart {
 
     private ArrayList<Item> itemList;
-    private Database d;
+    private final Database d;
     private Customer c;
 
     public Cart(Database d) {
