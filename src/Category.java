@@ -90,8 +90,6 @@ public final class Category {
         for (int i = 0; i < subCatList.size(); i++) {
 
             if(subCatList.get(i).getName().equals(name)){
-                //subCatList.remove(i);
-                //subCatList.set(i,new Category(subCatList.get(i).getName()));
                 subCatList.get(i).resetSubCategoryList();
                 subCatList.get(i).resetProductList();
             }
@@ -102,10 +100,7 @@ public final class Category {
 
         if(this.containsProduct(productName)){
 
-            //System.out.println("Found the product: "+this.getName()+"/"+this.getProduct(productName));
-            //path=this.getName()+">"+this.getProduct(productName).getName();
             path.appendRight(this.getName()+">"+this.getProduct(productName).getName());
-            //product=this.getProduct(productName);
             product.setProduct(this.getProduct(productName));
             return true;
         }
@@ -120,9 +115,6 @@ public final class Category {
             }
 
             if(b){
-
-                //System.out.println("Parent: "+this.getName());
-                //path=this.getName()+">"+path;
 
                 if(this.getName()==""){
                     return true;

@@ -29,7 +29,6 @@ public final class Cart {
 
         itemList=new ArrayList<>();
         this.d=d;
-        //this.c=c;
     }
 
     public void addProduct(String name,int qty){

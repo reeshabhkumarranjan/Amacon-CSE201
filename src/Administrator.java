@@ -71,11 +71,6 @@ public final class Administrator implements User {
                     break;
 
                 default:
-                    try {
-                        IO.println(d.searchProduct("Oneplus",true));
-                    } catch (ProductNotFoundException e) {
-                        IO.println(e.getMessage());
-                    }
                     IO.println("Invalid input. Try again.");
             }
         }

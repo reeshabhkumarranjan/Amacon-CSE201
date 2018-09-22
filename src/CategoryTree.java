@@ -41,9 +41,7 @@ public final class CategoryTree {
 
     public Product searchProduct(String productName,boolean showPath){
 
-        //String path="";
         PathString path=new PathString();
-        //Product p=null;
         ProductReference p=new ProductReference();
 
         root.searchProduct(productName,path,p);

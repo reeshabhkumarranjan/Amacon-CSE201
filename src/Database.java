@@ -4,13 +4,11 @@ import java.util.Scanner;
 public final class Database {
 
     private final CategoryTree categoryTree;
-    //HashSet<String> productSet;
     private final Scanner read;
     private int revenue;
 
     public Database() {
         categoryTree=new CategoryTree();
-        //productSet=new HashSet<>();
         read=new Scanner(System.in);
         revenue=0;
     }
@@ -38,8 +36,6 @@ public final class Database {
                 return;
             }
 
-//            int count=10;
-//            double price=50;
             c.addProduct(new Product(productName,count,price));
         }
 

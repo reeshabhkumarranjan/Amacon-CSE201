@@ -4,7 +4,6 @@ public final class Customer implements User{
     private final Cart c;
 
     public Customer(Cart c) {
-        //this.funds = funds;
         this.c=c;
         c.setC(this);
     }
