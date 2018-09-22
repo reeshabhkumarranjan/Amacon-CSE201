@@ -38,4 +38,18 @@ public class CategoryTree {
             c=c.getSubCategory(s);
         }
     }
+
+    public Product searchProduct(String productName,boolean showPath){
+
+        String path="";
+        Product p=null;
+
+        root.searchProduct(productName,path,p);
+
+        if(showPath){
+            System.out.println(path);
+        }
+
+        return p;
+    }
 }

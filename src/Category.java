@@ -73,4 +73,51 @@ public final class Category {
 
         productList.add(p);
     }
+
+    public void deleteProduct(String name){
+
+        for (int i = 0; i < productList.size(); i++) {
+
+            if(productList.get(i).getName().equals(name)){
+                productList.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void deleteSubCategory(String name){
+
+        for (int i = 0; i < subCatList.size(); i++) {
+
+            if(subCatList.get(i).getName().equals(name)){
+                subCatList.remove(i);
+            }
+        }
+    }
+
+    public boolean searchProduct(String productName, String path, Product product){
+
+        if(this.containsProduct(productName)){
+
+            path=this.getName();
+            product=this.getProduct(productName);
+            return true;
+        }
+
+        else{
+
+            boolean b=false;
+
+            for(Category c: subCatList){
+
+                b=b||c.searchProduct(productName,path, product);
+            }
+
+            if(b){
+                path=this.getName()+">"+path;
+            }
+        }
+
+        return false;
+    }
 }
