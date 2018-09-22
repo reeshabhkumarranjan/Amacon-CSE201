@@ -72,7 +72,7 @@ public class Database {
         p.setPrice(price);
     }
 
-    public void sale(Product p, int qty, double fundsRemaining){
+    public void sale(Product p, int qty, Double fundsRemaining){
 
         if(p.getNumberCount()>=qty && fundsRemaining>=qty*p.getPrice()){
 

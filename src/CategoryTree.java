@@ -43,7 +43,8 @@ public class CategoryTree {
 
         //String path="";
         PathString path=new PathString();
-        Product p=null;
+        //Product p=null;
+        ProductReference p=new ProductReference();
 
         root.searchProduct(productName,path,p);
 
@@ -51,6 +52,6 @@ public class CategoryTree {
             System.out.println(path);
         }
 
-        return p;
+        return p.getProduct();
     }
 }

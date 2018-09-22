@@ -98,14 +98,15 @@ public final class Category {
         }
     }
 
-    public boolean searchProduct(String productName, PathString path, Product product){
+    public boolean searchProduct(String productName, PathString path, ProductReference product){
 
         if(this.containsProduct(productName)){
 
             //System.out.println("Found the product: "+this.getName()+"/"+this.getProduct(productName));
             //path=this.getName()+">"+this.getProduct(productName).getName();
             path.appendRight(this.getName()+">"+this.getProduct(productName).getName());
-            product=this.getProduct(productName);
+            //product=this.getProduct(productName);
+            product.setProduct(this.getProduct(productName));
             return true;
         }
 
