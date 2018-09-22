@@ -4,16 +4,22 @@ import java.util.Scanner;
 public class Database {
 
     private CategoryTree categoryTree;
-    HashSet<String> productSet;
-    Scanner read;
+    //HashSet<String> productSet;
+    private Scanner read;
+    private int revenue;
 
     public Database() {
         categoryTree=new CategoryTree();
-        productSet=new HashSet<>();
+        //productSet=new HashSet<>();
         read=new Scanner(System.in);
+        revenue=0;
     }
 
-    public void insertProduct(String categoryPath,String productName){
+    public int getRevenue() {
+        return revenue;
+    }
+
+    public void insertProduct(String categoryPath, String productName){
 
         categoryTree.addCategory(categoryPath);
         Category c=categoryTree.getCategory(categoryPath);
@@ -77,6 +83,7 @@ public class Database {
         if(p.getNumberCount()>=qty && fundsRemaining>=qty*p.getPrice()){
 
             p.setNumberCount(p.getNumberCount()-qty);
+            this.revenue+=qty*p.getPrice();
         }
     }
 }

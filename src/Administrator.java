@@ -51,6 +51,7 @@ public class Administrator implements User {
                     break;
 
                 default:
+                    IO.println(d.searchProduct("Oneplus",true));
                     IO.println("Invalid input. Try again.");
             }
         }
