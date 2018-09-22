@@ -19,7 +19,7 @@ public class Database {
         return revenue;
     }
 
-    public void insertProduct(String categoryPath, String productName){
+    public void insertProduct(String categoryPath, String productName) throws ProductAlreadyExistsException {
 
         categoryTree.addCategory(categoryPath);
         Category c=categoryTree.getCategory(categoryPath);
@@ -35,9 +35,13 @@ public class Database {
 //            double price=50;
             c.addProduct(new Product(productName,count,price));
         }
+
+        else{
+            throw new ProductAlreadyExistsException("Product is already in the database!");
+        }
     }
 
-    public void delete(String path){
+    public void delete(String path) throws InvalidPathException {
 
         int splitIndex=path.lastIndexOf('>');
         String categoryPath=path.substring(0,splitIndex);
@@ -54,20 +58,34 @@ public class Database {
 
             c.deleteSubCategory(productName);
         }
+
+        else{
+            throw new InvalidPathException("The provided path is invalid!");
+        }
     }
 
-    public Product searchProduct(String name,boolean showPath){
+    public Product searchProduct(String name,boolean showPath) throws ProductNotFoundException {
 
         Product p=null;
 
         p=categoryTree.searchProduct(name,showPath);
+
+        if(p==null){
+            throw new ProductNotFoundException("Product does not exist in the database!");
+        }
 
         return p;
     }
 
     public void modifyProduct(String name){
 
-        Product p=searchProduct(name,false);
+        Product p= null;
+        try {
+            p = searchProduct(name,false);
+        } catch (ProductNotFoundException e) {
+            IO.println(e.getMessage());
+            return;
+        }
 
         System.out.println("Enter new price: ");
         double price=Double.parseDouble(read.next());
@@ -78,12 +96,16 @@ public class Database {
         p.setPrice(price);
     }
 
-    public void sale(Product p, int qty, Double fundsRemaining){
+    public void sale(Product p, int qty, Double fundsRemaining) throws FundsInsufficientException {
 
         if(p.getNumberCount()>=qty && fundsRemaining>=qty*p.getPrice()){
 
             p.setNumberCount(p.getNumberCount()-qty);
             this.revenue+=qty*p.getPrice();
+        }
+
+        else{
+            throw new FundsInsufficientException("Funds are insufficient!");
         }
     }
 }

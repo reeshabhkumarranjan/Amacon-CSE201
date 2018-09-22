@@ -24,19 +24,31 @@ public class Administrator implements User {
                     String catPath=IO.next();
                     IO.println("Enter product name");
                     String prodName=IO.next();
-                    d.insertProduct(catPath,prodName);
+                    try {
+                        d.insertProduct(catPath,prodName);
+                    } catch (ProductAlreadyExistsException e) {
+                        IO.println(e.getMessage());
+                    }
                     break;
 
                 case 2:
                     IO.println("Enter the complete path of the product/category to be deleted: ");
                     String path=IO.next();
-                    d.delete(path);
+                    try {
+                        d.delete(path);
+                    } catch (InvalidPathException e) {
+                        IO.println(e.getMessage());
+                    }
                     break;
 
                 case 3:
                     IO.println("Enter the name of the product: ");
                     prodName=IO.next();
-                    d.searchProduct(prodName,true);
+                    try {
+                        d.searchProduct(prodName,true);
+                    } catch (ProductNotFoundException e) {
+                        IO.println(e.getMessage());
+                    }
                     break;
 
                 case 4:
@@ -51,7 +63,11 @@ public class Administrator implements User {
                     break;
 
                 default:
-                    IO.println(d.searchProduct("Oneplus",true));
+                    try {
+                        IO.println(d.searchProduct("Oneplus",true));
+                    } catch (ProductNotFoundException e) {
+                        IO.println(e.getMessage());
+                    }
                     IO.println("Invalid input. Try again.");
             }
         }

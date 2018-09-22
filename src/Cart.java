@@ -34,7 +34,13 @@ public class Cart {
 
     public void addProduct(String name,int qty){
 
-        Product p=d.searchProduct(name,false);
+        Product p= null;
+        try {
+            p = d.searchProduct(name,false);
+        } catch (ProductNotFoundException e) {
+            IO.println(e.getMessage());
+            return;
+        }
         itemList.add(new Item(p,qty));
     }
 
@@ -46,7 +52,12 @@ public class Cart {
 
         for(Item i:itemList){
 
-            d.sale(i.getProduct(),i.getQty(),c.getFunds());
+            try {
+                d.sale(i.getProduct(),i.getQty(),c.getFunds());
+            } catch (FundsInsufficientException e) {
+                IO.println(e.getMessage());
+                return;
+            }
             c.setFunds(c.getFunds()-i.getQty()*i.getProduct().getPrice());
         }
     }

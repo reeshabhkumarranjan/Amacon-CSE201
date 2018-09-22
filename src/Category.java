@@ -98,7 +98,7 @@ public final class Category {
         }
     }
 
-    public boolean searchProduct(String productName, PathString path, ProductReference product){
+    public boolean searchProduct(String productName, PathString path, ProductReference product) {
 
         if(this.containsProduct(productName)){
 
