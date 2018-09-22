@@ -8,6 +8,11 @@ public class IO {
         return Integer.parseInt(read.next());
     }
 
+    public static double nextDouble(){
+
+        return Double.parseDouble(read.next());
+    }
+
     public static String next(){
 
         return read.next();
@@ -26,8 +31,5 @@ public class IO {
         System.out.print(o);
     }
 
-    public static double nextDouble(){
 
-        return Double.parseDouble(read.next());
-    }
 }

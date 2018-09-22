@@ -26,10 +26,17 @@ public class Database {
 
         if(!c.containsProduct(productName)){
 
-            System.out.println("Enter the number of units available: ");
-            int count=Integer.parseInt(read.next());
-            System.out.println("Enter the price: ");
-            double price=Double.parseDouble(read.next());
+            int count= 0;
+            double price= 0;
+            try {
+                System.out.println("Enter the number of units available: ");
+                count = IO.nextInt();
+                System.out.println("Enter the price: ");
+                price = IO.nextDouble();
+            } catch (Exception e) {
+                IO.println("Invalid input! Canceling the operation.");
+                return;
+            }
 
 //            int count=10;
 //            double price=50;
@@ -48,6 +55,10 @@ public class Database {
         String productName=path.substring(splitIndex+1);
 
         Category c=categoryTree.getCategory(categoryPath);
+
+        if(c==null){
+            throw new InvalidPathException("The provided path is invalid!");
+        }
 
         if(c.containsProduct(productName)){
 
@@ -87,10 +98,17 @@ public class Database {
             return;
         }
 
-        System.out.println("Enter new price: ");
-        double price=Double.parseDouble(read.next());
-        System.out.println("Enter new quantity: ");
-        int count=Integer.parseInt(read.next());
+        double price= 0;
+        int count= 0;
+        try {
+            System.out.println("Enter new price: ");
+            price = Double.parseDouble(read.next());
+            System.out.println("Enter new quantity: ");
+            count = IO.nextInt();
+        } catch (NumberFormatException e) {
+            IO.println("Invalid input! Canceling the operation.");
+            return;
+        }
 
         p.setNumberCount(count);
         p.setPrice(price);

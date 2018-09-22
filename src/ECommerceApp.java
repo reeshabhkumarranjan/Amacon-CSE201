@@ -25,7 +25,13 @@ public class ECommerceApp {
             IO.println("2. Customer login.");
             IO.println("3. Exit the program.");
 
-            int choice=IO.nextInt();
+            int choice= 0;
+            try {
+                choice = IO.nextInt();
+            } catch (Exception e) {
+                IO.println("Invalid input! Canceling the operation.");
+                continue;
+            }
 
             User user;
 

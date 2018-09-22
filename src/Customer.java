@@ -32,13 +32,25 @@ public class Customer implements User{
         boolean flag=true;
         while(flag){
             showMenu();
-            int choice= IO.nextInt();
+            int choice= 0;
+            try {
+                choice = IO.nextInt();
+            } catch (Exception e) {
+                IO.println("Invalid input! Canceling the operation.");
+                continue;
+            }
 
             switch (choice){
 
                 case 1:
                     IO.println("Enter funds: ");
-                    double funds=IO.nextDouble();
+                    double funds= 0;
+                    try {
+                        funds = IO.nextDouble();
+                    } catch (Exception e) {
+                        IO.println("Invalid input! Canceling the operation.");
+                        break;
+                    }
                     this.setFunds(funds);
                     break;
 
@@ -46,7 +58,13 @@ public class Customer implements User{
                     IO.println("Enter product name: ");
                     String name=IO.next();
                     IO.println("Enter quantity: ");
-                    int qty=IO.nextInt();
+                    int qty= 0;
+                    try {
+                        qty = IO.nextInt();
+                    } catch (Exception e) {
+                        IO.println("Invalid input! Canceling the operation.");
+                        break;
+                    }
                     this.addProduct(name,qty);
                     break;
 

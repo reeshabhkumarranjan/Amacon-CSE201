@@ -15,7 +15,14 @@ public class Administrator implements User {
 
         while(flag){
             showMenu();
-            int choice =IO.nextInt();
+
+            int choice = 0;
+            try {
+                choice = IO.nextInt();
+            } catch (Exception e) {
+                IO.println("Invalid input! Canceling the operation.");
+                continue;
+            }
 
             switch (choice){
 
@@ -24,6 +31,7 @@ public class Administrator implements User {
                     String catPath=IO.next();
                     IO.println("Enter product name");
                     String prodName=IO.next();
+
                     try {
                         d.insertProduct(catPath,prodName);
                     } catch (ProductAlreadyExistsException e) {
