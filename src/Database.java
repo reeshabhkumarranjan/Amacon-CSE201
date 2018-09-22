@@ -24,6 +24,9 @@ public class Database {
             int count=Integer.parseInt(read.next());
             System.out.println("Enter the price: ");
             double price=Double.parseDouble(read.next());
+
+//            int count=10;
+//            double price=50;
             c.addProduct(new Product(productName,count,price));
         }
     }
