@@ -7,7 +7,7 @@ public final class Product {
     public Product(String name, int numberCount, double price) {
         this.name = name;
         this.numberCount = numberCount;
-        this.price=price;
+        this.price = price;
     }
 
     public String getName() {

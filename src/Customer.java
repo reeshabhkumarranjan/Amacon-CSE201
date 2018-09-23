@@ -1,10 +1,10 @@
-public final class Customer implements User{
+public final class Customer implements User {
 
-    private double funds;
     private final Cart c;
+    private double funds;
 
     public Customer(Cart c) {
-        this.c=c;
+        this.c = c;
         c.setC(this);
     }
 
@@ -16,22 +16,22 @@ public final class Customer implements User{
         this.funds = funds;
     }
 
-    public void addProduct(String productName, int qty){
+    public void addProduct(String productName, int qty) {
 
-        c.addProduct(productName,qty);
+        c.addProduct(productName, qty);
     }
 
-    public void checkOut(){
+    public void checkOut() {
         c.checkOut();
     }
 
     @Override
     public void runSession() {
         IO.println("Logged in as a Customer.");
-        boolean flag=true;
-        while(flag){
+        boolean flag = true;
+        while (flag) {
             showMenu();
-            int choice= 0;
+            int choice = 0;
             try {
                 choice = IO.nextInt();
             } catch (Exception e) {
@@ -39,32 +39,32 @@ public final class Customer implements User{
                 continue;
             }
 
-            switch (choice){
+            switch (choice) {
 
                 case 1:
                     IO.println("Enter funds: ");
-                    double funds= 0;
+                    double funds = 0;
                     try {
                         funds = IO.nextDouble();
                     } catch (Exception e) {
                         IO.println("Invalid input! Canceling the operation.");
                         break;
                     }
-                    this.setFunds(this.getFunds()+funds);
+                    this.setFunds(this.getFunds() + funds);
                     break;
 
                 case 2:
                     IO.println("Enter product name: ");
-                    String name=IO.next();
+                    String name = IO.next();
                     IO.println("Enter quantity: ");
-                    int qty= 0;
+                    int qty = 0;
                     try {
                         qty = IO.nextInt();
                     } catch (Exception e) {
                         IO.println("Invalid input! Canceling the operation.");
                         break;
                     }
-                    this.addProduct(name,qty);
+                    this.addProduct(name, qty);
                     break;
 
                 case 3:
@@ -74,7 +74,7 @@ public final class Customer implements User{
 
                 case 4:
                     IO.println("Exiting...");
-                    flag=false;
+                    flag = false;
                     break;
 
                 default:

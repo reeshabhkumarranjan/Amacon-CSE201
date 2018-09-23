@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-final class Item{
+final class Item {
 
     private Product product;
     private int qty;
@@ -26,15 +26,11 @@ final class ItemListComparator implements Comparator<Item> {
     @Override
     public int compare(Item o1, Item o2) {
 
-        if(o1.getProduct().getPrice()*o1.getQty()>o2.getProduct().getPrice()*o2.getQty()){
+        if (o1.getProduct().getPrice() * o1.getQty() > o2.getProduct().getPrice() * o2.getQty()) {
             return 1;
-        }
-
-        else if(o1.getProduct().getPrice()*o1.getQty()==o2.getProduct().getPrice()*o2.getQty()){
+        } else if (o1.getProduct().getPrice() * o1.getQty() == o2.getProduct().getPrice() * o2.getQty()) {
             return 0;
-        }
-
-        else{
+        } else {
             return -1;
         }
     }
@@ -47,51 +43,51 @@ final class ItemListComparator implements Comparator<Item> {
 
 public final class Cart {
 
-    private ArrayList<Item> itemList;
     private final Database d;
+    private ArrayList<Item> itemList;
     private Customer c;
 
     public Cart(Database d) {
 
-        itemList=new ArrayList<>();
-        this.d=d;
+        itemList = new ArrayList<>();
+        this.d = d;
     }
 
-    public void addProduct(String name,int qty){
+    public void addProduct(String name, int qty) {
 
-        Product p= null;
+        Product p = null;
         try {
-            p = d.searchProduct(name,false);
+            p = d.searchProduct(name, false);
         } catch (ProductNotFoundException e) {
             IO.println(e.getMessage());
             return;
         }
-        itemList.add(new Item(p,qty));
+        itemList.add(new Item(p, qty));
     }
 
     public void setC(Customer c) {
         this.c = c;
     }
 
-    public void checkOut(){
+    public void checkOut() {
 
-        Collections.sort(itemList,new ItemListComparator());
-        ArrayList<Item> checkedOut=new ArrayList<>();
+        Collections.sort(itemList, new ItemListComparator());
+        ArrayList<Item> checkedOut = new ArrayList<>();
 
-        for(Item i:itemList){
+        for (Item i : itemList) {
 
             try {
-                d.sale(i.getProduct(),i.getQty(),c.getFunds());
-                c.setFunds(c.getFunds()-i.getQty()*i.getProduct().getPrice());
+                d.sale(i.getProduct(), i.getQty(), c.getFunds());
+                c.setFunds(c.getFunds() - i.getQty() * i.getProduct().getPrice());
                 checkedOut.add(i);
             } catch (FundsInsufficientException e) {
                 IO.println(e.getMessage());
 
-                if(checkedOut.size()>0){
+                if (checkedOut.size() > 0) {
                     IO.println("However, the top products adjustable in the budget have been checked out. Add more funds to check out the remaining items.");
                 }
 
-                for(Item ic:checkedOut){
+                for (Item ic : checkedOut) {
                     itemList.remove(ic);
                 }
 

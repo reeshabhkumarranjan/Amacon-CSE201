@@ -8,19 +8,19 @@ public final class Category {
 
     public Category(String name) {
         this.name = name;
-        productList=new ArrayList<>();
-        subCatList=new ArrayList<>();
+        productList = new ArrayList<>();
+        subCatList = new ArrayList<>();
     }
 
     public String getName() {
         return name;
     }
 
-    public Product getProduct(String name){
+    public Product getProduct(String name) {
 
-        for(Product p:productList){
+        for (Product p : productList) {
 
-            if(p.getName().equals(name)){
+            if (p.getName().equals(name)) {
                 return p;
             }
         }
@@ -28,11 +28,11 @@ public final class Category {
         return null;
     }
 
-    public Category getSubCategory(String name){
+    public Category getSubCategory(String name) {
 
-        for(Category c:subCatList){
+        for (Category c : subCatList) {
 
-            if(c.getName().equals(name)){
+            if (c.getName().equals(name)) {
                 return c;
             }
         }
@@ -40,11 +40,11 @@ public final class Category {
         return null;
     }
 
-    public boolean containsSubCategory(String name){
+    public boolean containsSubCategory(String name) {
 
-        for(Category c:subCatList){
+        for (Category c : subCatList) {
 
-            if(c.getName().equals(name)){
+            if (c.getName().equals(name)) {
                 return true;
             }
         }
@@ -52,11 +52,11 @@ public final class Category {
         return false;
     }
 
-    public boolean containsProduct(String name){
+    public boolean containsProduct(String name) {
 
-        for(Product p:productList){
+        for (Product p : productList) {
 
-            if(p.getName().equals(name)){
+            if (p.getName().equals(name)) {
                 return true;
             }
         }
@@ -64,32 +64,32 @@ public final class Category {
         return false;
     }
 
-    public void addSubCategory(String name){
+    public void addSubCategory(String name) {
 
         subCatList.add(new Category(name));
     }
 
-    public void addProduct(Product p){
+    public void addProduct(Product p) {
 
         productList.add(p);
     }
 
-    public void deleteProduct(String name){
+    public void deleteProduct(String name) {
 
         for (int i = 0; i < productList.size(); i++) {
 
-            if(productList.get(i).getName().equals(name)){
+            if (productList.get(i).getName().equals(name)) {
                 productList.remove(i);
                 break;
             }
         }
     }
 
-    public void deleteSubCategory(String name){
+    public void deleteSubCategory(String name) {
 
         for (int i = 0; i < subCatList.size(); i++) {
 
-            if(subCatList.get(i).getName().equals(name)){
+            if (subCatList.get(i).getName().equals(name)) {
                 subCatList.get(i).resetSubCategoryList();
                 subCatList.get(i).resetProductList();
             }
@@ -98,29 +98,27 @@ public final class Category {
 
     public boolean searchProduct(String productName, PathString path, ProductReference product) {
 
-        if(this.containsProduct(productName)){
+        if (this.containsProduct(productName)) {
 
-            path.appendRight(this.getName()+">"+this.getProduct(productName).getName());
+            path.appendRight(this.getName() + ">" + this.getProduct(productName).getName());
             product.setProduct(this.getProduct(productName));
             return true;
-        }
+        } else {
 
-        else{
+            boolean b = false;
 
-            boolean b=false;
+            for (Category c : subCatList) {
 
-            for(Category c: subCatList){
-
-                b=b||c.searchProduct(productName,path, product);
+                b = b || c.searchProduct(productName, path, product);
             }
 
-            if(b){
+            if (b) {
 
-                if(this.getName()==""){
+                if (this.getName() == "") {
                     return true;
                 }
 
-                path.appendLeft(this.getName()+">");
+                path.appendLeft(this.getName() + ">");
                 return true;
             }
         }
@@ -128,11 +126,11 @@ public final class Category {
         return false;
     }
 
-    public void resetSubCategoryList(){
-        this.subCatList=new ArrayList<>();
+    public void resetSubCategoryList() {
+        this.subCatList = new ArrayList<>();
     }
 
-    public void resetProductList(){
-        this.productList=new ArrayList<>();
+    public void resetProductList() {
+        this.productList = new ArrayList<>();
     }
 }

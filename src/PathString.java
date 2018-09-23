@@ -3,15 +3,15 @@ public final class PathString {
     private String s;
 
     public PathString() {
-        s="";
+        s = "";
     }
 
-    public void appendRight(String val){
-        s=s+val;
+    public void appendRight(String val) {
+        s = s + val;
     }
 
-    public void appendLeft(String val){
-        s=val+s;
+    public void appendLeft(String val) {
+        s = val + s;
     }
 
     public String getS() {

@@ -4,24 +4,24 @@ public final class CategoryTree {
 
     public CategoryTree() {
 
-        root=new Category("");
+        root = new Category("");
     }
 
-    public Category getCategory(String categoryPath){
+    public Category getCategory(String categoryPath) {
 
-        Category c=root;
+        Category c = root;
 
-        if(categoryPath.equals("")){
+        if (categoryPath.equals("")) {
             return c;
         }
 
-        String[] categoryPathValues=categoryPath.split(">");
+        String[] categoryPathValues = categoryPath.split(">");
 
-        for(String s:categoryPathValues){
+        for (String s : categoryPathValues) {
 
-            c=c.getSubCategory(s);
+            c = c.getSubCategory(s);
 
-            if(c==null){
+            if (c == null) {
                 return null;
             }
         }
@@ -31,27 +31,27 @@ public final class CategoryTree {
 
     public void addCategory(String categoryPath) {
 
-        Category c=root;
-        String[] categoryPathValues=categoryPath.split(">");
+        Category c = root;
+        String[] categoryPathValues = categoryPath.split(">");
 
-        for(String s:categoryPathValues){
+        for (String s : categoryPathValues) {
 
-            if(!c.containsSubCategory(s)){
+            if (!c.containsSubCategory(s)) {
                 c.addSubCategory(s);
             }
 
-            c=c.getSubCategory(s);
+            c = c.getSubCategory(s);
         }
     }
 
-    public Product searchProduct(String productName,boolean showPath){
+    public Product searchProduct(String productName, boolean showPath) {
 
-        PathString path=new PathString();
-        ProductReference p=new ProductReference();
+        PathString path = new PathString();
+        ProductReference p = new ProductReference();
 
-        root.searchProduct(productName,path,p);
+        root.searchProduct(productName, path, p);
 
-        if(showPath){
+        if (showPath) {
             System.out.println(path);
         }
 
