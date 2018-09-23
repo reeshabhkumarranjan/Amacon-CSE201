@@ -6,15 +6,13 @@ public final class ECommerceApp {
     public ECommerceApp() {
 
         database = new Database();
-        cart = new Cart(database);
-        Administrator administrator=new Administrator(database);
-        Customer customer=new Customer(cart);
 
         boolean flag = true;
 
         while (flag) {
 
-            //Initialise the cart here in case a new user needs to be initialised every time.
+            cart = new Cart(database);
+
             IO.println("1. Admin login.");
             IO.println("2. Customer login.");
             IO.println("3. Exit the program.");
@@ -33,15 +31,13 @@ public final class ECommerceApp {
 
                 case 1:
 
-                    //user = new Administrator(database);
-                    user=administrator;
+                    user = new Administrator(database);
                     user.runSession();
                     break;
 
                 case 2:
 
-                    //user = new Customer(cart);
-                    user=customer;
+                    user = new Customer(cart);
                     user.runSession();
                     break;
 
