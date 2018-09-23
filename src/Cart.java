@@ -86,7 +86,10 @@ public final class Cart {
                 checkedOut.add(i);
             } catch (FundsInsufficientException e) {
                 IO.println(e.getMessage());
-                IO.println("However, the top products adjustable in the budget have been checked out. Add more funds to check out the remaining items.");
+
+                if(checkedOut.size()>0){
+                    IO.println("However, the top products adjustable in the budget have been checked out. Add more funds to check out the remaining items.");
+                }
 
                 for(Item ic:checkedOut){
                     itemList.remove(ic);
