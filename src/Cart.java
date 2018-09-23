@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 final class Item{
 
@@ -16,6 +18,30 @@ final class Item{
 
     public int getQty() {
         return qty;
+    }
+}
+
+final class ItemListComparator implements Comparator<Item> {
+
+    @Override
+    public int compare(Item o1, Item o2) {
+
+        if(o1.getProduct().getPrice()*o1.getQty()>o2.getProduct().getPrice()*o2.getQty()){
+            return 1;
+        }
+
+        else if(o1.getProduct().getPrice()*o1.getQty()==o2.getProduct().getPrice()*o2.getQty()){
+            return 0;
+        }
+
+        else{
+            return -1;
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return false;
     }
 }
 
@@ -49,15 +75,25 @@ public final class Cart {
 
     public void checkOut(){
 
+        Collections.sort(itemList,new ItemListComparator());
+        ArrayList<Item> checkedOut=new ArrayList<>();
+
         for(Item i:itemList){
 
             try {
                 d.sale(i.getProduct(),i.getQty(),c.getFunds());
+                c.setFunds(c.getFunds()-i.getQty()*i.getProduct().getPrice());
+                checkedOut.add(i);
             } catch (FundsInsufficientException e) {
                 IO.println(e.getMessage());
+                IO.println("However, the top products adjustable in the budget have been checked out. Add more funds to check out the remaining items.");
+
+                for(Item ic:checkedOut){
+                    itemList.remove(ic);
+                }
+
                 return;
             }
-            c.setFunds(c.getFunds()-i.getQty()*i.getProduct().getPrice());
         }
     }
 }
