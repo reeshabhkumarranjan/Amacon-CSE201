@@ -25,3 +25,8 @@ class FundsInsufficientException extends Exception {
         super(message);
     }
 }
+
+class StockInsufficientException extends Exception {
+
+    public StockInsufficientException(String message) { super(message); }
+}

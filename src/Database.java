@@ -111,14 +111,17 @@ public final class Database {
         p.setPrice(price);
     }
 
-    public void sale(Product p, int qty, Double fundsRemaining) throws FundsInsufficientException {
+    public void sale(Product p, int qty, Double fundsRemaining) throws FundsInsufficientException, StockInsufficientException {
 
-        if (p.getNumberCount() >= qty && fundsRemaining >= qty * p.getPrice()) {
+        if(p.getNumberCount()<qty){
+            throw new StockInsufficientException("Available quantity in the database for "+p+" is less than required.");
+        }
 
-            p.setNumberCount(p.getNumberCount() - qty);
-            this.revenue += qty * p.getPrice();
-        } else {
+        if(fundsRemaining<qty*p.getPrice()){
             throw new FundsInsufficientException("Funds are insufficient!");
         }
+
+        p.setNumberCount(p.getNumberCount() - qty);
+
     }
 }

@@ -92,6 +92,9 @@ public final class Cart {
                 }
 
                 return;
+            } catch (StockInsufficientException e) {
+                IO.println(e.getMessage());
+
             }
         }
     }

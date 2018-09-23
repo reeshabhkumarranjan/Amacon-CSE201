@@ -32,10 +32,6 @@ public final class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", numberCount=" + numberCount +
-                ", price=" + price +
-                '}';
+        return this.getName();
     }
 }
