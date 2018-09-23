@@ -10,6 +10,11 @@ public final class CategoryTree {
     public Category getCategory(String categoryPath){
 
         Category c=root;
+
+        if(categoryPath.equals("")){
+            return c;
+        }
+
         String[] categoryPathValues=categoryPath.split(">");
 
         for(String s:categoryPathValues){

@@ -46,9 +46,19 @@ public final class Database {
 
     public void delete(String path) throws InvalidPathException {
 
-        int splitIndex=path.lastIndexOf('>');
-        String categoryPath=path.substring(0,splitIndex);
-        String productName=path.substring(splitIndex+1);
+        String categoryPath;
+        String productName;
+
+        if(path.contains(">")){
+            int splitIndex=path.lastIndexOf('>');
+            categoryPath=path.substring(0,splitIndex);
+            productName=path.substring(splitIndex+1);
+        }
+
+        else{
+            categoryPath="";
+            productName=path;
+        }
 
         Category c=categoryTree.getCategory(categoryPath);
 

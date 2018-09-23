@@ -50,7 +50,7 @@ public final class Customer implements User{
                         IO.println("Invalid input! Canceling the operation.");
                         break;
                     }
-                    this.setFunds(funds);
+                    this.setFunds(this.getFunds()+funds);
                     break;
 
                 case 2:
