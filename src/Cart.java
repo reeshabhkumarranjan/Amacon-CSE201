@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-final class Item {
+final class Item implements Serializable {
 
     private Product product;
     private int qty;
@@ -21,7 +22,7 @@ final class Item {
     }
 }
 
-final class ItemListComparator implements Comparator<Item> {
+final class ItemListComparator implements Comparator<Item>,Serializable{
 
     @Override
     public int compare(Item o1, Item o2) {
@@ -41,7 +42,7 @@ final class ItemListComparator implements Comparator<Item> {
     }
 }
 
-public final class Cart {
+public final class Cart implements Serializable {
 
     private final Database d;
     private ArrayList<Item> itemList;

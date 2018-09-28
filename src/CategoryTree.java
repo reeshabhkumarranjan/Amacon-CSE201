@@ -1,4 +1,6 @@
-public final class CategoryTree {
+import java.io.Serializable;
+
+public final class CategoryTree implements Serializable {
 
     private final Category root;
 

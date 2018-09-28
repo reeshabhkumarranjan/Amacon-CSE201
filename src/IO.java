@@ -1,3 +1,5 @@
+import java.io.*;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public final class IO {
@@ -32,5 +34,53 @@ public final class IO {
         System.out.print(o);
     }
 
+    public static HashSet deserializeUsernameList() throws IOException, ClassNotFoundException{
 
+        ObjectInputStream in=null;
+        String fileName="data/database/"+"usernameList"+".txt";
+
+        try{
+            in=new ObjectInputStream(new FileInputStream(fileName));
+            HashSet usernameList=(HashSet) in.readObject();
+            return usernameList;
+        }
+
+        finally {
+            in.close();
+        }
+
+        //return null;
+    }
+
+    public static void serializeUsernameList(HashSet<String> usernamelist) throws IOException {
+
+        ObjectOutputStream out=null;
+
+        try{
+            String fileName="/data/database/"+"usernameList"+".txt";
+            File file=new File(fileName);
+
+            if(!file.exists()){
+                file.createNewFile();
+            }
+
+            out=new ObjectOutputStream(new FileOutputStream(fileName,false));
+            out.writeObject(usernamelist);
+        }
+
+        finally {
+            out.close();
+        }
+    }
+
+    public static HashSet updateUsernameList(){
+
+        try {
+            return deserializeUsernameList();
+        } catch (IOException e) {
+            return new HashSet();
+        } catch (ClassNotFoundException e) {
+            return new HashSet();
+        }
+    }
 }

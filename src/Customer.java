@@ -1,11 +1,35 @@
-public final class Customer implements User {
+import java.io.*;
+
+public final class Customer implements User, Serializable {
+
+    //TODO add serialize method here.
 
     private final Cart c;
     private double funds;
+    private final String username;
 
-    public Customer(Cart c) {
+    public static Customer deserialize(String username) throws IOException, ClassNotFoundException{
+
+        ObjectInputStream in=null;
+        String fileName="data/customer/"+username+".txt";
+
+        try{
+            in=new ObjectInputStream(new FileInputStream(fileName));
+            Customer customer=(Customer) in.readObject();
+            return customer;
+        }
+
+        finally {
+            in.close();
+        }
+
+        //return null;
+    }
+
+    public Customer(Cart c, String username) {
         this.c = c;
         c.setC(this);
+        this.username =username;
     }
 
     public double getFunds() {
@@ -23,6 +47,27 @@ public final class Customer implements User {
 
     public void checkOut() {
         c.checkOut();
+    }
+
+    public void serialize() throws IOException {
+
+        ObjectOutputStream out=null;
+
+        try{
+            String fileName="/data/customer/"+this.username+".txt";
+            File file=new File(fileName);
+
+            if(!file.exists()){
+                file.createNewFile();
+            }
+
+            out=new ObjectOutputStream(new FileOutputStream(fileName,false));
+            out.writeObject(this);
+        }
+
+        finally {
+            out.close();
+        }
     }
 
     @Override
@@ -74,6 +119,11 @@ public final class Customer implements User {
 
                 case 4:
                     IO.println("Exiting...");
+                    try {
+                        this.serialize();
+                    } catch (IOException e) {
+                        IO.println("Cannot save your information to the disk.");
+                    }
                     flag = false;
                     break;
 

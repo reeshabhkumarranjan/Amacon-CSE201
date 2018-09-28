@@ -1,6 +1,9 @@
+import java.io.*;
 import java.util.Scanner;
 
-public final class Database {
+public final class Database implements Serializable {
+
+    //TODO add serialize method here.
 
     private final CategoryTree categoryTree;
     private final Scanner read;
@@ -10,6 +13,56 @@ public final class Database {
         categoryTree = new CategoryTree();
         read = new Scanner(System.in);
         revenue = 0;
+    }
+
+    public Database update(){
+
+        try {
+            return deserialize();
+        } catch (IOException e) {
+            return new Database();
+        } catch (ClassNotFoundException e) {
+            return new Database();
+        }
+    }
+
+    public void serialize() throws IOException {
+
+        ObjectOutputStream out=null;
+
+        try{
+            String fileName="/data/database/"+"database"+".txt";
+            File file=new File(fileName);
+
+            if(!file.exists()){
+                file.createNewFile();
+            }
+
+            out=new ObjectOutputStream(new FileOutputStream(fileName,false));
+            out.writeObject(this);
+        }
+
+        finally {
+            out.close();
+        }
+    }
+
+    public static Database deserialize() throws IOException, ClassNotFoundException{
+
+        ObjectInputStream in=null;
+        String fileName="data/database/"+"database"+".txt";
+
+        try{
+            in=new ObjectInputStream(new FileInputStream(fileName));
+            Database database=(Database) in.readObject();
+            return database;
+        }
+
+        finally {
+            in.close();
+        }
+
+        //return null;
     }
 
     public int getRevenue() {

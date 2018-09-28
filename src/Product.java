@@ -1,4 +1,6 @@
-public final class Product {
+import java.io.Serializable;
+
+public final class Product implements Serializable {
 
     private final String name;
     private int numberCount;

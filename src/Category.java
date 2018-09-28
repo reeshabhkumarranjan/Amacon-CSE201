@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public final class Category {
+public final class Category implements Serializable {
 
     private final String name;
     private ArrayList<Product> productList;
