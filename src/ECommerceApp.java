@@ -109,9 +109,9 @@ public final class ECommerceApp {
             customer.c.setC(customer);
 
             IO.println("Do you want to continue with your previous cart?\n1. Yes\n2. No");
-            int choice=IO.nextInt();
+            int choice = IO.nextInt();
 
-            switch (choice){
+            switch (choice) {
 
                 case 1:
                     break;

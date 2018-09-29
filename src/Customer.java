@@ -4,8 +4,8 @@ public final class Customer implements User, Serializable {
 
     //TODO add serialize method here.
 
-    public Cart c;
     private final String username;
+    public Cart c;
     private double funds;
 
     public Customer(Cart c, String username) {

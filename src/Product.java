@@ -37,10 +37,10 @@ public final class Product implements Serializable {
         return this.getName();
     }
 
-    public void getDetails(){
+    public void getDetails() {
 
-        IO.println("name: "+this.name);
-        IO.println("count: "+this.numberCount);
-        IO.println("price: "+this.price);
+        IO.println("name: " + this.name);
+        IO.println("count: " + this.numberCount);
+        IO.println("price: " + this.price);
     }
 }

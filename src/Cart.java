@@ -54,8 +54,8 @@ public final class Cart implements Serializable {
         this.d = d;
     }
 
-    public void setDatabase(Database d){
-        this.d=d;
+    public void setDatabase(Database d) {
+        this.d = d;
     }
 
     public void addProduct(String name, int qty) {
@@ -104,7 +104,6 @@ public final class Cart implements Serializable {
 //        }
 
 
-
         try {
             for (Item i : itemList) {
                 d.sale(i.getProduct(), i.getQty(), c.getFunds());
@@ -129,8 +128,8 @@ public final class Cart implements Serializable {
         }
     }
 
-    public void reset(){
+    public void reset() {
 
-        this.itemList=new ArrayList<>();
+        this.itemList = new ArrayList<>();
     }
 }

@@ -172,7 +172,7 @@ public final class Database implements Serializable {
     public void sale(Product p, int qty, Double fundsRemaining) throws FundsInsufficientException, StockInsufficientException {
 
         try {
-            p=this.searchProduct(p.getName(),false);
+            p = this.searchProduct(p.getName(), false);
         } catch (ProductNotFoundException e) {
             e.printStackTrace();
         }
