@@ -1,14 +1,13 @@
+import java.io.*;
 import java.util.Scanner;
 
 public final class Database {
 
     private final CategoryTree categoryTree;
-    private final Scanner read;
     private int revenue;
 
     public Database() {
         categoryTree = new CategoryTree();
-        read = new Scanner(System.in);
         revenue = 0;
     }
 
@@ -99,7 +98,7 @@ public final class Database {
         int count = 0;
         try {
             System.out.println("Enter new price: ");
-            price = Double.parseDouble(read.next());
+            price = IO.nextDouble();
             System.out.println("Enter new quantity: ");
             count = IO.nextInt();
         } catch (NumberFormatException e) {
@@ -124,5 +123,50 @@ public final class Database {
         p.setNumberCount(p.getNumberCount() - qty);
         this.revenue += qty * p.getPrice();
 
+    }
+
+    public void save() throws IOException {
+        ObjectOutputStream out = null;
+
+        try {
+            String fileName = "data/database/" + "database" + ".txt";
+            File file = new File(fileName);
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            out = new ObjectOutputStream(new FileOutputStream(fileName, false));
+            out.writeObject(this);
+        } finally {
+            out.close();
+        }
+    }
+
+    private static Database deserialize() throws IOException, ClassNotFoundException {
+
+        ObjectInputStream in = null;
+        String fileName = "data/database/" + "database" + ".txt";
+
+        try {
+            in = new ObjectInputStream(new FileInputStream(fileName));
+            Database database = (Database) in.readObject();
+            return database;
+        } finally {
+            in.close();
+        }
+    }
+
+    public static Database reload() {
+
+        try {
+            return deserialize();
+        } catch (IOException e) {
+            return new Database();
+        } catch (ClassNotFoundException e) {
+            return new Database();
+        } catch (NullPointerException e) {
+            return new Database();
+        }
     }
 }
