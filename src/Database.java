@@ -122,6 +122,7 @@ public final class Database {
         }
 
         p.setNumberCount(p.getNumberCount() - qty);
+        this.revenue += qty * p.getPrice();
 
     }
 }
