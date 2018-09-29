@@ -180,7 +180,8 @@ public final class Database implements Serializable {
         }
 
         p.setNumberCount(p.getNumberCount() - qty);
-        p.getDetails();
+        this.revenue += qty * p.getPrice();
+        //p.getDetails();
 
     }
 }
