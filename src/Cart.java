@@ -79,28 +79,58 @@ public final class Cart implements Serializable {
         Collections.sort(itemList, new ItemListComparator());
         ArrayList<Item> checkedOut = new ArrayList<>();
 
-        for (Item i : itemList) {
+//        for (Item i : itemList) {
+//
+//            try {
+//                d.sale(i.getProduct(), i.getQty(), c.getFunds());
+//                c.setFunds(c.getFunds() - i.getQty() * i.getProduct().getPrice());
+//                checkedOut.add(i);
+//            } catch (FundsInsufficientException e) {
+//                IO.println(e.getMessage());
+//
+//                if (checkedOut.size() > 0) {
+//                    IO.println("However, the top products adjustable in the budget have been checked out. Add more funds to check out the remaining items.");
+//                }
+//
+//                for (Item ic : checkedOut) {
+//                    itemList.remove(ic);
+//                }
+//
+//                return;
+//            } catch (StockInsufficientException e) {
+//                IO.println(e.getMessage());
+//
+//            }
+//        }
 
-            try {
+
+
+        try {
+            for (Item i : itemList) {
                 d.sale(i.getProduct(), i.getQty(), c.getFunds());
                 c.setFunds(c.getFunds() - i.getQty() * i.getProduct().getPrice());
                 checkedOut.add(i);
-            } catch (FundsInsufficientException e) {
-                IO.println(e.getMessage());
+            }
+        } catch (FundsInsufficientException e) {
+            IO.println(e.getMessage());
 
-                if (checkedOut.size() > 0) {
-                    IO.println("However, the top products adjustable in the budget have been checked out. Add more funds to check out the remaining items.");
-                }
+            if (checkedOut.size() > 0) {
+                IO.println("However, the top products adjustable in the budget have been checked out. Add more funds to check out the remaining items.");
+            }
 
-                for (Item ic : checkedOut) {
-                    itemList.remove(ic);
-                }
+            return;
+        } catch (StockInsufficientException e) {
+            IO.println(e.getMessage());
 
-                return;
-            } catch (StockInsufficientException e) {
-                IO.println(e.getMessage());
-
+        } finally {
+            for (Item ic : checkedOut) {
+                itemList.remove(ic);
             }
         }
+    }
+
+    public void reset(){
+
+        this.itemList=new ArrayList<>();
     }
 }

@@ -106,6 +106,20 @@ public final class ECommerceApp {
             }
             IO.println("Dear " + username + ", Welcome back!");
             customer.c.setDatabase(database);
+            customer.c.setC(customer);
+
+            IO.println("Do you want to continue with your previous cart?\n1. Yes\n2. No");
+            int choice=IO.nextInt();
+
+            switch (choice){
+
+                case 1:
+                    break;
+                case 2:
+                    customer.c.reset();
+                    break;
+            }
+
             return customer;
         } else {
 
