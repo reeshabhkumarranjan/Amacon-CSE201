@@ -4,32 +4,36 @@ public final class Customer implements User, Serializable {
 
     //TODO add serialize method here.
 
-    private final Cart c;
-    private double funds;
+    public Cart c;
     private final String username;
-
-    public static Customer deserialize(String username) throws IOException, ClassNotFoundException{
-
-        ObjectInputStream in=null;
-        String fileName="data/customer/"+username+".txt";
-
-        try{
-            in=new ObjectInputStream(new FileInputStream(fileName));
-            Customer customer=(Customer) in.readObject();
-            return customer;
-        }
-
-        finally {
-            in.close();
-        }
-
-        //return null;
-    }
+    private double funds;
 
     public Customer(Cart c, String username) {
         this.c = c;
         c.setC(this);
-        this.username =username;
+        this.username = username;
+    }
+
+    public static Customer deserialize(String username) throws IOException, ClassNotFoundException {
+
+        ObjectInputStream in = null;
+        String fileName = "data/customer/" + username + ".txt";
+
+//        File file=new File(fileName);
+//
+//        if(!file.exists()){
+//            file.createNewFile();
+//        }
+
+        try {
+            in = new ObjectInputStream(new FileInputStream(fileName));
+            Customer customer = (Customer) in.readObject();
+            return customer;
+        } finally {
+            in.close();
+        }
+
+        //return null;
     }
 
     public double getFunds() {
@@ -51,21 +55,27 @@ public final class Customer implements User, Serializable {
 
     public void serialize() throws IOException {
 
-        ObjectOutputStream out=null;
+        ObjectOutputStream out = null;
 
-        try{
-            String fileName="/data/customer/"+this.username+".txt";
-            File file=new File(fileName);
+        try {
+            String fileName = "data/customer/" + this.username + ".txt";
+            File file = new File(fileName);
 
-            if(!file.exists()){
+            if (!file.exists()) {
                 file.createNewFile();
+
+//                if(file.createNewFile()){
+//                    IO.println("Successfully created the file: "+fileName);
+//                }
+//
+//                else{
+//                    IO.println("Failed to create the file: "+fileName);
+//                }
             }
 
-            out=new ObjectOutputStream(new FileOutputStream(fileName,false));
+            out = new ObjectOutputStream(new FileOutputStream(fileName, false));
             out.writeObject(this);
-        }
-
-        finally {
+        } finally {
             out.close();
         }
     }
@@ -123,6 +133,8 @@ public final class Customer implements User, Serializable {
                         this.serialize();
                     } catch (IOException e) {
                         IO.println("Cannot save your information to the disk.");
+//                        IO.println(e.getMessage());
+//                        e.printStackTrace();
                     }
                     flag = false;
                     break;

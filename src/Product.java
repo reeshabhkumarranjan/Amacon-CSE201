@@ -36,4 +36,11 @@ public final class Product implements Serializable {
     public String toString() {
         return this.getName();
     }
+
+    public void getDetails(){
+
+        IO.println("name: "+this.name);
+        IO.println("count: "+this.numberCount);
+        IO.println("price: "+this.price);
+    }
 }

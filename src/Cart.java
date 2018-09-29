@@ -22,7 +22,7 @@ final class Item implements Serializable {
     }
 }
 
-final class ItemListComparator implements Comparator<Item>,Serializable{
+final class ItemListComparator implements Comparator<Item>, Serializable {
 
     @Override
     public int compare(Item o1, Item o2) {
@@ -44,7 +44,7 @@ final class ItemListComparator implements Comparator<Item>,Serializable{
 
 public final class Cart implements Serializable {
 
-    private final Database d;
+    private transient Database d;
     private ArrayList<Item> itemList;
     private Customer c;
 
@@ -52,6 +52,10 @@ public final class Cart implements Serializable {
 
         itemList = new ArrayList<>();
         this.d = d;
+    }
+
+    public void setDatabase(Database d){
+        this.d=d;
     }
 
     public void addProduct(String name, int qty) {

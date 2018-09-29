@@ -6,7 +6,7 @@ public final class Database implements Serializable {
     //TODO add serialize method here.
 
     private final CategoryTree categoryTree;
-    private final Scanner read;
+    private final transient Scanner read;
     private int revenue;
 
     public Database() {
@@ -15,7 +15,29 @@ public final class Database implements Serializable {
         revenue = 0;
     }
 
-    public Database update(){
+    public static Database deserialize() throws IOException, ClassNotFoundException {
+
+        ObjectInputStream in = null;
+        String fileName = "data/database/" + "database" + ".txt";
+
+//        File file=new File(fileName);
+//
+//        if(!file.exists()){
+//            file.createNewFile();
+//        }
+
+        try {
+            in = new ObjectInputStream(new FileInputStream(fileName));
+            Database database = (Database) in.readObject();
+            return database;
+        } finally {
+            in.close();
+        }
+
+        //return null;
+    }
+
+    public Database update() {
 
         try {
             return deserialize();
@@ -23,46 +45,28 @@ public final class Database implements Serializable {
             return new Database();
         } catch (ClassNotFoundException e) {
             return new Database();
+        } catch (NullPointerException e) {
+            return new Database();
         }
     }
 
     public void serialize() throws IOException {
 
-        ObjectOutputStream out=null;
+        ObjectOutputStream out = null;
 
-        try{
-            String fileName="/data/database/"+"database"+".txt";
-            File file=new File(fileName);
+        try {
+            String fileName = "data/database/" + "database" + ".txt";
+            File file = new File(fileName);
 
-            if(!file.exists()){
+            if (!file.exists()) {
                 file.createNewFile();
             }
 
-            out=new ObjectOutputStream(new FileOutputStream(fileName,false));
+            out = new ObjectOutputStream(new FileOutputStream(fileName, false));
             out.writeObject(this);
-        }
-
-        finally {
+        } finally {
             out.close();
         }
-    }
-
-    public static Database deserialize() throws IOException, ClassNotFoundException{
-
-        ObjectInputStream in=null;
-        String fileName="data/database/"+"database"+".txt";
-
-        try{
-            in=new ObjectInputStream(new FileInputStream(fileName));
-            Database database=(Database) in.readObject();
-            return database;
-        }
-
-        finally {
-            in.close();
-        }
-
-        //return null;
     }
 
     public int getRevenue() {
@@ -152,7 +156,8 @@ public final class Database implements Serializable {
         int count = 0;
         try {
             System.out.println("Enter new price: ");
-            price = Double.parseDouble(read.next());
+            //price = Double.parseDouble(read.next());
+            price = IO.nextDouble();
             System.out.println("Enter new quantity: ");
             count = IO.nextInt();
         } catch (NumberFormatException e) {
@@ -166,15 +171,16 @@ public final class Database implements Serializable {
 
     public void sale(Product p, int qty, Double fundsRemaining) throws FundsInsufficientException, StockInsufficientException {
 
-        if(p.getNumberCount()<qty){
-            throw new StockInsufficientException("Available quantity in the database for "+p+" is less than required.");
+        if (p.getNumberCount() < qty) {
+            throw new StockInsufficientException("Available quantity in the database for " + p + " is less than required.");
         }
 
-        if(fundsRemaining<qty*p.getPrice()){
+        if (fundsRemaining < qty * p.getPrice()) {
             throw new FundsInsufficientException("Funds are insufficient!");
         }
 
         p.setNumberCount(p.getNumberCount() - qty);
+        p.getDetails();
 
     }
 }

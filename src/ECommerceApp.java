@@ -8,55 +8,13 @@ public final class ECommerceApp {
     private HashSet<String> usernameList;
     //private Cart cart;
 
-    private final void createDirectories(){
-
-        String[] dirList={"data/customer/","data/database"};
-
-        for(String dirName:dirList){
-            File f=new File(dirName);
-
-            if(!f.exists()){
-                f.mkdirs();
-            }
-        }
-    }
-
-    private Customer login(){
-
-        IO.println("Enter username");
-        String username=IO.next();
-
-        if(usernameList.contains(username)){
-            Customer customer= null;
-            try {
-                customer = Customer.deserialize(username);
-            } catch (IOException e) {
-                IO.println("Cannot retrieve customer: "+username);
-            } catch (ClassNotFoundException e) {
-                IO.println("Cannot retrieve customer: "+username);
-            }
-            IO.println("Dear "+username+", Welcome back!");
-            return customer;
-        }
-
-        else{
-
-            usernameList.add(username);
-            Customer customer=new Customer(new Cart(database), username);
-            IO.println("Dear "+username+", Welcome to Amacon.com!");
-            IO.println("You have been successfully registered!");
-            return customer;
-        }
-        //return null;
-    }
-
     public ECommerceApp() {
 
         database = new Database();
-        usernameList=new HashSet<>();
+        usernameList = new HashSet<>();
 
-        database=database.update();
-        usernameList=IO.updateUsernameList();
+        database = database.update();
+        usernameList = IO.updateUsernameList();
 
 
         createDirectories();
@@ -93,7 +51,7 @@ public final class ECommerceApp {
                     //TODO add customer login here
 
                     //user = new Customer(new Cart(database), );
-                    user=login();
+                    user = login();
                     user.runSession();
                     break;
 
@@ -117,5 +75,46 @@ public final class ECommerceApp {
                     IO.println("Invalid input. Try again.");
             }
         }
+    }
+
+    private final void createDirectories() {
+
+        String[] dirList = {"data/customer/", "data/database"};
+
+        for (String dirName : dirList) {
+            File f = new File(dirName);
+
+            if (!f.exists()) {
+                f.mkdirs();
+            }
+        }
+    }
+
+    private Customer login() {
+
+        IO.println("Enter username");
+        String username = IO.next();
+
+        if (usernameList.contains(username)) {
+            Customer customer = null;
+            try {
+                customer = Customer.deserialize(username);
+            } catch (IOException e) {
+                IO.println("Cannot retrieve customer: " + username);
+            } catch (ClassNotFoundException e) {
+                IO.println("Cannot retrieve customer: " + username);
+            }
+            IO.println("Dear " + username + ", Welcome back!");
+            customer.c.setDatabase(database);
+            return customer;
+        } else {
+
+            usernameList.add(username);
+            Customer customer = new Customer(new Cart(database), username);
+            IO.println("Dear " + username + ", Welcome to Amacon.com!");
+            IO.println("You have been successfully registered!");
+            return customer;
+        }
+        //return null;
     }
 }

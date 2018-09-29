@@ -34,18 +34,22 @@ public final class IO {
         System.out.print(o);
     }
 
-    public static HashSet deserializeUsernameList() throws IOException, ClassNotFoundException{
+    public static HashSet deserializeUsernameList() throws IOException, ClassNotFoundException {
 
-        ObjectInputStream in=null;
-        String fileName="data/database/"+"usernameList"+".txt";
+        ObjectInputStream in = null;
+        String fileName = "data/database/" + "usernameList" + ".txt";
 
-        try{
-            in=new ObjectInputStream(new FileInputStream(fileName));
-            HashSet usernameList=(HashSet) in.readObject();
+//        File file=new File(fileName);
+//
+//        if(!file.exists()){
+//            file.createNewFile();
+//        }
+
+        try {
+            in = new ObjectInputStream(new FileInputStream(fileName));
+            HashSet usernameList = (HashSet) in.readObject();
             return usernameList;
-        }
-
-        finally {
+        } finally {
             in.close();
         }
 
@@ -54,32 +58,32 @@ public final class IO {
 
     public static void serializeUsernameList(HashSet<String> usernamelist) throws IOException {
 
-        ObjectOutputStream out=null;
+        ObjectOutputStream out = null;
 
-        try{
-            String fileName="/data/database/"+"usernameList"+".txt";
-            File file=new File(fileName);
+        try {
+            String fileName = "data/database/" + "usernameList" + ".txt";
+            File file = new File(fileName);
 
-            if(!file.exists()){
+            if (!file.exists()) {
                 file.createNewFile();
             }
 
-            out=new ObjectOutputStream(new FileOutputStream(fileName,false));
+            out = new ObjectOutputStream(new FileOutputStream(fileName, false));
             out.writeObject(usernamelist);
-        }
-
-        finally {
+        } finally {
             out.close();
         }
     }
 
-    public static HashSet updateUsernameList(){
+    public static HashSet updateUsernameList() {
 
         try {
             return deserializeUsernameList();
         } catch (IOException e) {
             return new HashSet();
         } catch (ClassNotFoundException e) {
+            return new HashSet();
+        } catch (NullPointerException e) {
             return new HashSet();
         }
     }
