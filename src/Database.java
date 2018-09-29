@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
 
-public final class Database {
+public final class Database implements Serializable {
 
     private final CategoryTree categoryTree;
     private int revenue;

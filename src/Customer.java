@@ -1,11 +1,47 @@
-public final class Customer implements User {
+import java.io.*;
 
-    private final Cart c;
+public final class Customer implements User, Serializable {
+
+    private final transient Cart c;
     private double funds;
+    private String username;
 
     public Customer(Cart c) {
         this.c = c;
         c.setC(this);
+    }
+
+    public void save() throws IOException {
+
+        ObjectOutputStream out = null;
+
+        try {
+            String fileName = "data/customer/" + this.username + ".txt";
+            File file = new File(fileName);
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            out = new ObjectOutputStream(new FileOutputStream(fileName, false));
+            out.writeObject(this);
+        } finally {
+            out.close();
+        }
+    }
+
+    public static Customer deserialize(String username) throws IOException, ClassNotFoundException {
+
+        ObjectInputStream in = null;
+        String fileName = "data/customer/" + username + ".txt";
+
+        try {
+            in = new ObjectInputStream(new FileInputStream(fileName));
+            Customer customer = (Customer) in.readObject();
+            return customer;
+        } finally {
+            in.close();
+        }
     }
 
     public double getFunds() {
