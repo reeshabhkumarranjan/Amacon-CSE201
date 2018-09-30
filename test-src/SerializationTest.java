@@ -73,6 +73,41 @@ public class SerializationTest {
         assertEquals(out.toString().trim(),">a>b>c".trim());
     }
 
+    @Test
+    public void CartSerializationTest() throws ProductAlreadyExistsException, IOException, ClassNotFoundException {
+        ByteArrayInputStream in=new ByteArrayInputStream((giveInput(2)+giveInput(10)).getBytes());
+        System.setIn(in);
+        IO.resetScanner(in);
+
+        clearDatabase();
+
+        Database database=new Database();
+        database.insertProduct("a>b","c");
+
+        //Cart cart=new Cart(database);
+
+        User customer=new Customer(new Cart(database),"testUser");
+        ((Customer) customer).setFunds(1000);
+        ((Customer) customer).addProduct("c",2);
+
+        ((Customer) customer).serialize();
+        customer=null;
+        User customer2=Customer.deserialize("testUser");
+        ((Customer) customer2).c.setDatabase(database);
+        ((Customer) customer2).checkOut();
+        assertEquals(database.getRevenue(),20);
+
+        //cart.addProduct("c",1);
+
+//        System.setOut(consoleOut);
+//        out=new ByteArrayOutputStream();
+//        System.setOut(new PrintStream(out));
+//        IO.resetPrinter(new PrintStream(out));
+//
+//        cart.checkOut();
+//        assertEquals(out.toString().trim(),"Funds are insufficient!\n".trim());
+    }
+
     private static String DatabaseSerializationInput(){
 
         String s="";
@@ -95,6 +130,10 @@ public class SerializationTest {
 
     private static void clearDatabase(){
         File dir=new File("data/customer");
+
+        if(!dir.exists()){
+            return;
+        }
 
         for(File file:dir.listFiles()){
             file.delete();
