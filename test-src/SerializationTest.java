@@ -40,16 +40,25 @@ public class SerializationTest {
     }
 
     @Test
-    public void DatabaseSerializationTest(){
+    public void DatabaseSerializationTest() throws ProductNotFoundException{
 
         ByteArrayInputStream in=new ByteArrayInputStream((giveInput(DatabaseSerializationInput())).getBytes());
         System.setIn(in);
         IO.resetScanner(in);
 
-        ECommerceApp testApp=new ECommerceApp();
-        ECommerceApp testApp2=new ECommerceApp();
+        clearDatabase();
 
-        assertEquals("a","a");
+        ECommerceApp testApp=new ECommerceApp();
+        Database database=new Database();
+        database=database.update();
+
+        System.setOut(consoleOut);
+        out=new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+        IO.resetPrinter(new PrintStream(out));
+
+        database.searchProduct("c",true);
+        assertEquals(out.toString().trim(),">a>b>c".trim());
     }
 
     private static String DatabaseSerializationInput(){
@@ -63,18 +72,25 @@ public class SerializationTest {
         s=s+"5\n";
         s=s+"3\n";
 
-        s=s+"1\n";
-        s=s+"3\n";
-        s=s+"c\n";
-        s=s+"5\n";
-        s=s+"3\n";
+//        s=s+"1\n";
+//        s=s+"3\n";
+//        s=s+"c\n";
+//        s=s+"5\n";
+//        s=s+"3\n";
 
         return s;
     }
 
-    private void clearDatabase(){
-        File file=new File("data");
-        if(file.exists()){
+    private static void clearDatabase(){
+        File dir=new File("data/customer");
+
+        for(File file:dir.listFiles()){
+            file.delete();
+        }
+
+        dir=new File("data/database");
+
+        for(File file:dir.listFiles()){
             file.delete();
         }
     }
