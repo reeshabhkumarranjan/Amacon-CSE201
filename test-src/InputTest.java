@@ -1,9 +1,10 @@
 import org.junit.*;
-import org.junit.runners.MethodSorters;
+import org.junit.Assert.*;
+import static org.junit.Assert.*;
 
 import java.io.*;
 
-public class DatabaseTest {
+public class InputTest {
 
     private String giveInput(Object o){
 
@@ -12,6 +13,7 @@ public class DatabaseTest {
 
     private static InputStream consoleIn; // Saves the console's input stream.
     private static PrintStream consoleOut; // Saves the console's output stream.
+    private static ByteArrayOutputStream out=new ByteArrayOutputStream();
 
     @BeforeClass
     public static void setUp(){
@@ -23,7 +25,7 @@ public class DatabaseTest {
 
         // To suppress console's output.
 
-        ByteArrayOutputStream out=new ByteArrayOutputStream();
+        out=new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
         IO.resetPrinter(new PrintStream(out));
     }
@@ -79,5 +81,30 @@ public class DatabaseTest {
         Database database=new Database();
         database.insertProduct("a>b","c");
         database.searchProduct("d",false);
+    }
+
+    @Test
+    public void checkOut_outOfStockProduct() throws ProductAlreadyExistsException{
+        ByteArrayInputStream in=new ByteArrayInputStream((giveInput(0)+giveInput(10)).getBytes());
+        System.setIn(in);
+        IO.resetScanner(in);
+
+        Database database=new Database();
+        database.insertProduct("a>b","c");
+
+        Cart cart=new Cart(database);
+
+        User customer=new Customer(cart,"testUser");
+        ((Customer) customer).setFunds(1000);
+
+        cart.addProduct("c",1);
+
+        System.setOut(consoleOut);
+        out=new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+        IO.resetPrinter(new PrintStream(out));
+
+        cart.checkOut();
+        assertEquals(out.toString().trim(),"Available quantity in the database for c is less than required.\n".trim());
     }
 }
