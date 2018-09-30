@@ -8,6 +8,10 @@ public final class IO {
         read=new Scanner(in);
     }
 
+    public static void resetPrinter(PrintStream out){
+        System.setOut(out);
+    }
+
     private static Scanner read = new Scanner(System.in);
 
     public static int nextInt() {
