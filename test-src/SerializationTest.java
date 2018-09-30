@@ -14,6 +14,8 @@ public class SerializationTest {
 
     @BeforeClass
     public static void setUp() {
+
+        createDirectories();
         consoleIn = System.in;
         System.setIn(consoleIn);
         IO.resetScanner(consoleIn);
@@ -34,6 +36,7 @@ public class SerializationTest {
 
         System.setIn(consoleIn);
         System.setOut(consoleOut);
+        clearDatabase();
     }
 
     private static void clearDatabase() {
@@ -106,4 +109,18 @@ public class SerializationTest {
         ((Customer) customer2).checkOut();
         assertEquals(database.getRevenue(), 20);
     }
+
+    private static final void createDirectories() {
+
+        String[] dirList = {"data/customer/", "data/database"};
+
+        for (String dirName : dirList) {
+            File f = new File(dirName);
+
+            if (!f.exists()) {
+                f.mkdirs();
+            }
+        }
+    }
+
 }
