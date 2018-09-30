@@ -4,15 +4,15 @@ import java.util.Scanner;
 
 public final class IO {
 
-    public static void resetScanner(InputStream in){
-        read=new Scanner(in);
+    private static Scanner read = new Scanner(System.in);
+
+    public static void resetScanner(InputStream in) {
+        read = new Scanner(in);
     }
 
-    public static void resetPrinter(PrintStream out){
+    public static void resetPrinter(PrintStream out) {
         System.setOut(out);
     }
-
-    private static Scanner read = new Scanner(System.in);
 
     public static int nextInt() {
 
