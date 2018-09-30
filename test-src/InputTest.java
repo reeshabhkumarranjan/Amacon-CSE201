@@ -107,4 +107,29 @@ public class InputTest {
         cart.checkOut();
         assertEquals(out.toString().trim(),"Available quantity in the database for c is less than required.\n".trim());
     }
+
+    @Test
+    public void checkOut_insufficientFunds() throws ProductAlreadyExistsException{
+        ByteArrayInputStream in=new ByteArrayInputStream((giveInput(2)+giveInput(10)).getBytes());
+        System.setIn(in);
+        IO.resetScanner(in);
+
+        Database database=new Database();
+        database.insertProduct("a>b","c");
+
+        Cart cart=new Cart(database);
+
+        User customer=new Customer(cart,"testUser");
+        ((Customer) customer).setFunds(0);
+
+        cart.addProduct("c",1);
+
+        System.setOut(consoleOut);
+        out=new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+        IO.resetPrinter(new PrintStream(out));
+
+        cart.checkOut();
+        assertEquals(out.toString().trim(),"Funds are insufficient!\n".trim());
+    }
 }
