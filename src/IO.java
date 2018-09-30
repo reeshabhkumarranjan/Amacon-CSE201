@@ -39,12 +39,6 @@ public final class IO {
         ObjectInputStream in = null;
         String fileName = "data/database/" + "usernameList" + ".txt";
 
-//        File file=new File(fileName);
-//
-//        if(!file.exists()){
-//            file.createNewFile();
-//        }
-
         try {
             in = new ObjectInputStream(new FileInputStream(fileName));
             HashSet usernameList = (HashSet) in.readObject();
@@ -52,8 +46,6 @@ public final class IO {
         } finally {
             in.close();
         }
-
-        //return null;
     }
 
     public static void serializeUsernameList(HashSet<String> usernamelist) throws IOException {

@@ -3,8 +3,6 @@ import java.util.Scanner;
 
 public final class Database implements Serializable {
 
-    //TODO add serialize method here.
-
     private final CategoryTree categoryTree;
     private final transient Scanner read;
     private int revenue;
@@ -20,12 +18,6 @@ public final class Database implements Serializable {
         ObjectInputStream in = null;
         String fileName = "data/database/" + "database" + ".txt";
 
-//        File file=new File(fileName);
-//
-//        if(!file.exists()){
-//            file.createNewFile();
-//        }
-
         try {
             in = new ObjectInputStream(new FileInputStream(fileName));
             Database database = (Database) in.readObject();
@@ -33,8 +25,6 @@ public final class Database implements Serializable {
         } finally {
             in.close();
         }
-
-        //return null;
     }
 
     public Database update() {
@@ -156,7 +146,6 @@ public final class Database implements Serializable {
         int count = 0;
         try {
             System.out.println("Enter new price: ");
-            //price = Double.parseDouble(read.next());
             price = IO.nextDouble();
             System.out.println("Enter new quantity: ");
             count = IO.nextInt();
@@ -187,7 +176,6 @@ public final class Database implements Serializable {
 
         p.setNumberCount(p.getNumberCount() - qty);
         this.revenue += qty * p.getPrice();
-        //p.getDetails();
 
     }
 }

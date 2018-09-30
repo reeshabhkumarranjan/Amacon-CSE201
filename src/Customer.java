@@ -2,8 +2,6 @@ import java.io.*;
 
 public final class Customer implements User, Serializable {
 
-    //TODO add serialize method here.
-
     private final String username;
     public Cart c;
     private double funds;
@@ -19,12 +17,6 @@ public final class Customer implements User, Serializable {
         ObjectInputStream in = null;
         String fileName = "data/customer/" + username + ".txt";
 
-//        File file=new File(fileName);
-//
-//        if(!file.exists()){
-//            file.createNewFile();
-//        }
-
         try {
             in = new ObjectInputStream(new FileInputStream(fileName));
             Customer customer = (Customer) in.readObject();
@@ -32,8 +24,6 @@ public final class Customer implements User, Serializable {
         } finally {
             in.close();
         }
-
-        //return null;
     }
 
     public double getFunds() {
@@ -63,14 +53,6 @@ public final class Customer implements User, Serializable {
 
             if (!file.exists()) {
                 file.createNewFile();
-
-//                if(file.createNewFile()){
-//                    IO.println("Successfully created the file: "+fileName);
-//                }
-//
-//                else{
-//                    IO.println("Failed to create the file: "+fileName);
-//                }
             }
 
             out = new ObjectOutputStream(new FileOutputStream(fileName, false));
@@ -133,8 +115,6 @@ public final class Customer implements User, Serializable {
                         this.serialize();
                     } catch (IOException e) {
                         IO.println("Cannot save your information to the disk.");
-//                        IO.println(e.getMessage());
-//                        e.printStackTrace();
                     }
                     flag = false;
                     break;

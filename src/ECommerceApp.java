@@ -6,7 +6,6 @@ public final class ECommerceApp {
 
     private Database database;
     private HashSet<String> usernameList;
-    //private Cart cart;
 
     public ECommerceApp() {
 
@@ -21,8 +20,6 @@ public final class ECommerceApp {
         boolean flag = true;
 
         while (flag) {
-
-            //cart = new Cart(database);
 
             IO.println("1. Admin login.");
             IO.println("2. Customer login.");
@@ -48,9 +45,6 @@ public final class ECommerceApp {
 
                 case 2:
 
-                    //TODO add customer login here
-
-                    //user = new Customer(new Cart(database), );
                     user = login();
                     user.runSession();
                     break;
@@ -129,6 +123,5 @@ public final class ECommerceApp {
             IO.println("You have been successfully registered!");
             return customer;
         }
-        //return null;
     }
 }
