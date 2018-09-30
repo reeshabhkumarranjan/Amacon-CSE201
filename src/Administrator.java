@@ -19,7 +19,7 @@ public final class Administrator implements User {
             int choice = 0;
             try {
                 choice = IO.nextInt();
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 IO.println("Invalid input! Canceling the operation.");
                 continue;
             }

@@ -71,7 +71,7 @@ public final class Customer implements User, Serializable {
             int choice = 0;
             try {
                 choice = IO.nextInt();
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 IO.println("Invalid input! Canceling the operation.");
                 continue;
             }
@@ -83,7 +83,7 @@ public final class Customer implements User, Serializable {
                     double funds = 0;
                     try {
                         funds = IO.nextDouble();
-                    } catch (Exception e) {
+                    } catch (NumberFormatException e) {
                         IO.println("Invalid input! Canceling the operation.");
                         break;
                     }
@@ -97,7 +97,7 @@ public final class Customer implements User, Serializable {
                     int qty = 0;
                     try {
                         qty = IO.nextInt();
-                    } catch (Exception e) {
+                    } catch (NumberFormatException e) {
                         IO.println("Invalid input! Canceling the operation.");
                         break;
                     }

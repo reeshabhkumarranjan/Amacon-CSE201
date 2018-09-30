@@ -77,7 +77,7 @@ public final class Database implements Serializable {
                 count = IO.nextInt();
                 System.out.println("Enter the price: ");
                 price = IO.nextDouble();
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 IO.println("Invalid input! Canceling the operation.");
                 return;
             }

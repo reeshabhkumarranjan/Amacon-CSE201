@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 public final class IO {
 
+    public static void resetScanner(InputStream in){
+        read=new Scanner(in);
+    }
+
     private static Scanner read = new Scanner(System.in);
 
     public static int nextInt() {
