@@ -163,7 +163,9 @@ public final class Database implements Serializable {
         try {
             p = this.searchProduct(p.getName(), false);
         } catch (ProductNotFoundException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            IO.println("The item: "+p+" doesn't exist in our system anymore. Skipping it.");
+            return;
         }
 
         if (p.getNumberCount() < qty) {
